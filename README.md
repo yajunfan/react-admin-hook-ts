@@ -1,46 +1,82 @@
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 项目开发过程，
+### 1.安装使用ts的react模板
+```
+antd 基于最新稳定版本的 TypeScript（>=4.0.0），请确保项目中使用匹配的版本。
 
-## Available Scripts
+$ yarn create react-app antd-demo-ts --template typescript
+或者是
+npx create-react-app antd-demo-ts --template typescript
 
-In the project directory, you can run:
+```
+### 2.安装antd并安装icon使用组件
+```
+ yarn add antd
+ yarn add @ant-design/icons
+```
+### 3.安装scss，并使用modele.scss
+```
+ yarn add scss
+```
+### 4.安装react-loadable和nprogress 用于页面切换和请求数据时，浏览器的顶部出现的进度条
+```
+ yarn add nprogress
+ yarn add react-loadable
+```
 
-### `yarn start`
+## 错误集合
+### index.tsx:24 Uncaught Error: useHref() may be used only in the context of a <Router> component.
+```
+原因是在 Menu.Item中写入了Link（Router 组件外面使用了 Link 组件，所以导致报错）
+<Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
+    {
+        navLists.map((item) => {
+            return <Menu.Item key={item.key}>
+                <Link to={"/"+item.key}>{item.name}</Link>
+            </Menu.Item>;
+        })
+    }
+</Menu>
+解决方式
+import {BrowserRouter as Router,Link} from "react-router-dom"; 记得引入
+原来是在最外层没有使用Router这个标签
+return (
+    <Router>
+        do something
+    </Router>
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Error: useRoutes() may be used only in the context of a <Router> component
+```
+原因是使用的react-router-domV6 ，直接切换成v5的话就没有这个问题，如果使用v6版本的话，需要使用useRoutes这种方式
+引入的组件
+import Home from "../../router/home/index";
+import Visual from "../../router/tools/index";
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+V5模式
+import {BrowserRouter as Router,Route} from "react-router-dom"
+return (
+    <Router>
+        <Route key="home" exact path="/home"  component={Home}/>
+        <Route key="visual/list" exact path="/home/visual/list"  component={Visual}
+    </Router>
+)
 
-### `yarn test`
+V6模式(解决方式)
+import {BrowserRouter as Router,useRoutes} from "react-router-dom"
+const GetRoutes  = ()=>{
+    let routers = useRoutes([
+        { path: "/home", element: <Home /> },
+        { path: "/home/visual/list", element: <Visual /> }
+    ]);
+    return routers;
+}
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+return (
+    <Router>
+        <GetRoutes />
+    </Router>
+)
+注意之前使用的是component，现在是element
+```
