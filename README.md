@@ -24,9 +24,47 @@ npx create-react-app antd-demo-ts --template typescript
  yarn add nprogress
  yarn add react-loadable
 ```
+### 更换主题
+```
+1.根据官方文档，安装craco 以及 craco-less
+    yarn add @craco/craco
+    yarn add craco-less
+2.在package.json中修改
+    "scripts": {
+        -   "start": "react-scripts start",(删除)
+        -   "build": "react-scripts build",(删除)
+        -   "test": "react-scripts test",(删除)
+        +   "start": "craco start",(替换值)
+        +   "build": "craco build",(替换值)
+        +   "test": "craco test",(替换值)
+    }
+3.在项目根目录创建一个 craco.config.js
+    const CracoLessPlugin = require('craco-less');
+
+    module.exports = {
+    plugins: [
+        {
+        plugin: CracoLessPlugin,
+        options: {
+            lessLoaderOptions: {
+            lessOptions: {
+                modifyVars: { '@primary-color': '#1DA57A' }, 
+                javascriptEnabled: true,
+            },
+            },
+        },
+        },
+    ],
+    };
+4. 将src/App.css 文件修改为 src/App.less，对应的app.jsx中
+    - import './App.css';(删除)
+    + import './App.less';(替换值)
+5. 重启项目
+    yarn start
+```
 
 ## 错误集合
-### index.tsx:24 Uncaught Error: useHref() may be used only in the context of a <Router> component.
+### 1.index.tsx:24 Uncaught Error: useHref() may be used only in the context of a <Router> component.
 ```
 原因是在 Menu.Item中写入了Link（Router 组件外面使用了 Link 组件，所以导致报错）
 <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
@@ -47,7 +85,7 @@ return (
     </Router>
 ```
 
-### Error: useRoutes() may be used only in the context of a <Router> component
+### 2.Error: useRoutes() may be used only in the context of a <Router> component
 ```
 原因是使用的react-router-domV6 ，直接切换成v5的话就没有这个问题，如果使用v6版本的话，需要使用useRoutes这种方式
 引入的组件

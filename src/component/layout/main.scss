@@ -2,13 +2,18 @@
     background: white;
     .layout-header{
         padding:0 20px;
+        height: 45px;
+        line-height: 45px;
     }
     .logo{
         float: left;
         font-size: 30px;
         color: white;
+        margin-right: 20px;
     }
     .layout-content{
         padding:0 20px;
+        color: white;
+        background: #142336;
     }
 }

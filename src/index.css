@@ -11,6 +11,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+ul,li,a{
+  list-style: none;
+}
+span,a,b,i{
+  display: inline-block;
+}
 .flex-cen-cen{
   display: flex;
   justify-content: center;
@@ -30,4 +36,8 @@ code {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+/* color */
+.c-white{
+  color: white;
 }

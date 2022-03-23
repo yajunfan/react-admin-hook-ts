@@ -1,7 +1,7 @@
 /* eslint-disable no-unreachable */
 import React,{useContext} from "react";
 import {navContext} from "./Context.jsx";
-import {Breadcrumb}  from 'antd';
+import {Breadcrumb,Button }  from 'antd';
 
 function renderBread(selectKeys,navLists){
     const breadcrumbList:Array = [];
@@ -27,18 +27,20 @@ function CustomBreadcrumb(){
     const {selectKeys,navLists} = useContext(navContext);
     const breadcrumbList = renderBread(selectKeys,navLists);
     return (
-        <div className="flex-sta-cen">
-           <Breadcrumb>
+        <div className="flex-sta-cen c-white">
+           <Breadcrumb className="c-white">
                 <Breadcrumb.Item>首页</Breadcrumb.Item>
                 {
                     breadcrumbList.map((item)=>{
                         return (
-                            <Breadcrumb.Item>{item.title}</Breadcrumb.Item>
+                            <Breadcrumb.Item className="c-white">{item.title}</Breadcrumb.Item>
                         )
                     })
                 }
             </Breadcrumb>
+            <Button type="primary">Primary Button</Button>
         </div>
     )
 }   
 export default CustomBreadcrumb;
+

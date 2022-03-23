@@ -14,10 +14,16 @@ const GetRoutes  = ()=>{
 }
 function ContentMain(){
     return (
-        <div>
+        <div className="content-main" style={styles['content-main']}>
             <CustomBreadcrumb ></CustomBreadcrumb>
             <GetRoutes />   
         </div>
     )
 }
 export default ContentMain;
+
+const styles = {
+    'content-main': {
+        background:'#142336'
+    }
+}
