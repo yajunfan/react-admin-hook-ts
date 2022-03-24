@@ -14,7 +14,7 @@ function Main() {
     const contentHeight:string = clientHeight-45 +"px";
   return (
     <div className="Main" style={{height:maxHeight}}>
-            <Layout className='layout'>
+            <Layout className='layout' theme="dark">
                 <Context>
                     <Header className="layout-header">
                         <div className="logo">

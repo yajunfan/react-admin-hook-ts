@@ -1,0 +1,21 @@
+@import "../../mixin/minix.scss";
+.dashboard-div{
+    // background: "#142336";
+    :global{
+        .ant-card-actions,.ant-card-body{
+            background: #112a45;
+        }
+        .ant-card-meta-title{
+            color:#d6d5d2;
+        }
+    }
+    .card{
+        
+        width:300px;
+        margin:10px;
+    }
+    .btn{
+        @include margin(10px 10px 0px 10px);
+    }
+}
+

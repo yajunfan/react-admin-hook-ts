@@ -1,10 +1,7 @@
 import React from 'react';
 import './App.less';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-// import {BrowserRouter as Router,Route} from "react-router-dom";
-// import Login from "./router/login/login";
-import Main from "./component/layout/main";
 
+import Main from "./component/layout/main";
 
 function App() {
   return (

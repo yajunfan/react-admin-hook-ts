@@ -17,6 +17,7 @@ ul,li,a{
 span,a,b,i{
   display: inline-block;
 }
+/* flex */
 .flex-cen-cen{
   display: flex;
   justify-content: center;

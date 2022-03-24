@@ -27,18 +27,17 @@ function CustomBreadcrumb(){
     const {selectKeys,navLists} = useContext(navContext);
     const breadcrumbList = renderBread(selectKeys,navLists);
     return (
-        <div className="flex-sta-cen c-white">
-           <Breadcrumb className="c-white">
+        <div className="flex-sta-cen ">
+           <Breadcrumb className="">
                 <Breadcrumb.Item>首页</Breadcrumb.Item>
                 {
                     breadcrumbList.map((item)=>{
                         return (
-                            <Breadcrumb.Item className="c-white">{item.title}</Breadcrumb.Item>
+                            <Breadcrumb.Item className="">{item.title}</Breadcrumb.Item>
                         )
                     })
                 }
             </Breadcrumb>
-            <Button type="primary">Primary Button</Button>
         </div>
     )
 }   

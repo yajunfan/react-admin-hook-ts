@@ -1,6 +1,6 @@
-import React,{useContext,useState} from "react";
+import React,{useContext} from "react";
 import { Menu} from 'antd';
-import {BrowserRouter as Router,Route,Link} from "react-router-dom"
+import {BrowserRouter as Router,Link} from "react-router-dom"
 import {navContext} from "./Context.jsx";
 function renderMenuItem({key, icon, title}){
     return (
@@ -22,15 +22,12 @@ function renderSubMenu({key, icon, title,subs}){
       </Menu.SubMenu>
     )
 }
-
-
 function CustomMenu(){
-    const {navLists,openKeys,dispatch} = useContext(navContext);
+    const {navLists,dispatch} = useContext(navContext);
     
     return (
-        <Router>
             <div style={{color:'white'}}>
-                <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} 
+                <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['/home']} 
                      onClick={(data)=>{dispatch({type:'navClick',openKeys:data.keyPath})}}>
                     {
                         navLists.map((item) => {
@@ -39,7 +36,6 @@ function CustomMenu(){
                     }
                 </Menu>
             </div>
-        </Router>
     )
 }   
 

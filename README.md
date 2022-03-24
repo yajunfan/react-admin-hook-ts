@@ -62,6 +62,48 @@ npx create-react-app antd-demo-ts --template typescript
 5. 重启项目
     yarn start
 ```
+## 使用style-mixin  (用于React的样式混合)
+```
+ 安装 yarn add style-mixin
+ 使用方式有两种，首先是在src文件夹下新建mixin的文件夹
+ 第一种:新建一个minixscss.ts
+ 第二种：新建一个minix.scss
+
+```
+### 第一种:在mixin文件夹下新建一个minixscss.ts
+```
+minixscss.ts
+    import mixin from 'style-mixin';
+    可以创建多个对象,如下
+    export const m = mixin({
+        margin: function($margin = '10px') {
+            return {
+                'margin':$margin
+            }
+        },
+        marginRight:function($right = '10px') {
+            return {
+                'marginRight':$right
+            }
+        },
+    });
+
+    export const p = mixin({
+        padding: function($padding = '10px') {
+            return {
+                'margin':$padding
+            }
+        }
+    });
+使用的组件页面，比如   home.tsx中
+import {m} from "../../mixin/minix"
+const styles = {
+    test:m({$margin:'20px'}) //如果需要修改值这么写
+    test:m('$margin', { border:'1px solid red' });
+}
+<Button style={styless.test} type="primary" >点击 </Button>   
+
+```
 
 ## 错误集合
 ### 1.index.tsx:24 Uncaught Error: useHref() may be used only in the context of a <Router> component.
@@ -117,4 +159,15 @@ return (
     </Router>
 )
 注意之前使用的是component，现在是element
+```
+
+### 3.react-dom.development.js:67 Warning: Using UNSAFE_componentWillReceiveProps in strict mode is not recommended and may indicate bugs in your code. See https://reactjs.org/link/unsafe-component-lifecycles for details.* Move data fetching code or side effects to componentDidUpdate.
+### * If you're updating state whenever props change, refactor your code to use memoization techniques or move it to static getDerivedStateFromProps. Learn more at: https://reactjs.org/link/derived-state
+
+### Please update the following components: o
+
+```
+使用的react 是17.0.2
+在使用DraggableArea这个组件的时候，会报这个错 ，拖拽导致数据发生变化，拒了解，是组件自己的异常问题，目前还未解决
+当前的解决方式就是 ，将src/index.js或者src/index.jsx中的 <React.StrictMode> 删除，虽然这不是一个好主意，但是确实有效
 ```
