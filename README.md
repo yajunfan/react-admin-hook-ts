@@ -1,7 +1,7 @@
 # Getting Started with Create React App
 
 ## 项目开发过程，
-### 1.安装使用ts的react模板
+## 1.安装使用ts的react模板
 ```
 antd 基于最新稳定版本的 TypeScript（>=4.0.0），请确保项目中使用匹配的版本。
 
@@ -10,21 +10,21 @@ $ yarn create react-app antd-demo-ts --template typescript
 npx create-react-app antd-demo-ts --template typescript
 
 ```
-### 2.安装antd并安装icon使用组件
+## 2.安装antd并安装icon使用组件
 ```
  yarn add antd
  yarn add @ant-design/icons
 ```
-### 3.安装scss，并使用modele.scss
+## 3.安装scss，并使用modele.scss
 ```
  yarn add scss
 ```
-### 4.安装react-loadable和nprogress 用于页面切换和请求数据时，浏览器的顶部出现的进度条
+## 4.安装react-loadable和nprogress 用于页面切换和请求数据时，浏览器的顶部出现的进度条
 ```
  yarn add nprogress
  yarn add react-loadable
 ```
-### 更换主题
+## 5.更换主题
 ```
 1.根据官方文档，安装craco 以及 craco-less
     yarn add @craco/craco
@@ -62,15 +62,15 @@ npx create-react-app antd-demo-ts --template typescript
 5. 重启项目
     yarn start
 ```
-## 使用style-mixin  (用于React的样式混合)
+## 6.使用style-mixin  (用于React的样式混合)
 ```
  安装 yarn add style-mixin
  使用方式有两种，首先是在src文件夹下新建mixin的文件夹
  第一种:新建一个minixscss.ts
- 第二种：新建一个minix.scss
+ 第二种：新建一个minix.scss(推荐使用，书写方便简洁，且外联样式，方便修改)
 
 ```
-### 第一种:在mixin文件夹下新建一个minixscss.ts
+### 6-1 第一种:在mixin文件夹下新建一个minixscss.ts,这种方式，主要是行内样式
 ```
 minixscss.ts
     import mixin from 'style-mixin';
@@ -99,14 +99,37 @@ minixscss.ts
 import {m} from "../../mixin/minix"
 const styles = {
     test:m({$margin:'20px'}) //如果需要修改值这么写
-    test:m('$margin', { border:'1px solid red' });
+    test:m('$margin', { border:'1px solid red' }); //也可以这么写
+    test:m({$margin:'20px',border:'1px solid red'}); //也可以这么写
 }
 <Button style={styless.test} type="primary" >点击 </Button>   
 
 ```
+### 6-2 第二种：在mixin文件夹下新建一个minix.scss，这种主要是作用在className
+```
+minix.scss
+    @mixin marginRight($right) {
+        marginRight:$right
+    }
+    @mixin margin($margin) {
+        margin:$margin
+    }
+    ....
 
+    然后在需要的index.module.scss文件中引入
+index.module.scss
+    @import "../../mixin/minix.scss";
+    .btn{
+        @include margin(10px 10px 0px 10px);
+    }
+index.tsx
+    引入：
+    import styles from  "./index.module.scss"
+    使用：
+    <Button className={styles.btn} type="primary" >新建可视化</Button>   
+```
 ## 错误集合
-### 1.index.tsx:24 Uncaught Error: useHref() may be used only in the context of a <Router> component.
+### Error ：1.index.tsx:24 Uncaught Error: useHref() may be used only in the context of a <Router> component.
 ```
 原因是在 Menu.Item中写入了Link（Router 组件外面使用了 Link 组件，所以导致报错）
 <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
@@ -161,7 +184,7 @@ return (
 注意之前使用的是component，现在是element
 ```
 
-### 3.react-dom.development.js:67 Warning: Using UNSAFE_componentWillReceiveProps in strict mode is not recommended and may indicate bugs in your code. See https://reactjs.org/link/unsafe-component-lifecycles for details.* Move data fetching code or side effects to componentDidUpdate.
+### 3.Error:react-dom.development.js:67 Warning: Using UNSAFE_componentWillReceiveProps in strict mode is not recommended and may indicate bugs in your code. See https://reactjs.org/link/unsafe-component-lifecycles for details.* Move data fetching code or side effects to componentDidUpdate.
 ### * If you're updating state whenever props change, refactor your code to use memoization techniques or move it to static getDerivedStateFromProps. Learn more at: https://reactjs.org/link/derived-state
 
 ### Please update the following components: o
