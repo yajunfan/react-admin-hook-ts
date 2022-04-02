@@ -1,4 +1,12 @@
-# Getting Started with Create React App
+## 使用
+```
+ node >14版本
+ 使用的是react-router-dom V6版本
+
+ 安装node_modules    yarn / npm install
+ 运行 yarn start / npm run start
+ 
+```
 
 ## 项目开发过程，
 ## 1.安装使用ts的react模板
@@ -127,6 +135,18 @@ index.tsx
     import styles from  "./index.module.scss"
     使用：
     <Button className={styles.btn} type="primary" >新建可视化</Button>   
+```
+## 知识点
+### 1.使用css module和className 多类名的设置
+```
+  单个的设置
+  <div className={styles.channelLink}>联系我们</div>
+
+  多个的设置
+  方法一:
+  <div className={[`${styles.ftgLink}`,`${styles.width30}`].join(' ')}>
+  方法二:
+  <div className={`${styles.ftgLink} ${styles.width30}`}>
 ```
 ## 错误集合
 ### Error ：1.index.tsx:24 Uncaught Error: useHref() may be used only in the context of a <Router> component.

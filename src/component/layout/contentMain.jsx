@@ -1,6 +1,6 @@
 import React from "react";
 import {useRoutes} from "react-router-dom"
-import CustomBreadcrumb from "./customBreadcrumb"
+// import CustomBreadcrumb from "./customBreadcrumb"
 import Home from "../../router/home/index";
 import Visual from "../../router/tools/index";
 
@@ -25,6 +25,7 @@ export default ContentMain;
 
 const styles = {
     'content-main': {
+        height:'100%'
         // background:'#142336'
     }
 }

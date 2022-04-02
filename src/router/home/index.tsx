@@ -1,40 +1,38 @@
 import React,{useState,useEffect}from 'react';
-import {DraggableArea} from 'react-draggable-tags';
+import GridLayout from "react-grid-layout";
+
 import styles from  "./index.module.scss"
+import  '/node_modules/react-grid-layout/css/styles.css'
+import  '/node_modules/react-resizable/css/styles.css';
 
 import { Card, Avatar,Button } from 'antd';
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
-
+// 子组件
 import FixedModule from "./component/fixedModule";
-
-import {m} from "../../mixin/minix"
-const styless = {
-    test:m({$margin:'20px',padding:"10px"},{border:"1px solid red"})
-}
+//图片
+import {markPng,avatarSvg} from "./img";
 const { Meta } = Card;
 
 function Home(props) {
-    const [dashboardLists, setDashboardLists] = useState<Array<{name: string; id: number; config: []}>>([]);
+    const [dashboardLists, setDashboardLists] = useState<Array<{name: string; id: number; i:string;x:number;y:number;w:number;h:number;config: []}>>([]);
     useEffect(() => {
         if (dashboardLists.length === 0) {
             setDashboardLists([
-                {name:"测试1",id:1,config:[]},
-                {name:"测试2",id:2,config:[]},
-                {name:"测试3",id:3,config:[]},
+                {name:"测试1",id:1, i: "a", x: 0, y: 0, w: 3, h: 11,config:[]},
+                {name:"测试2",id:2, i: "b", x: 3, y: 0, w: 3, h: 11, config:[]},
+                {name:"测试3",id:3, i: "c", x: 6, y: 0, w: 3, h: 11,config:[]},
             ])
         }
+        console.log(111,dashboardLists)
     }, [dashboardLists])
-    const onChange = (tags) => {
-        setDashboardLists(tags)
-    }
-    const itemRender = ({ tag, index }) => {
+    const itemRender = ( tag ) => {
         return (
             <Card
                 className={styles.card}
                 cover={
                 <img
                     alt="example"
-                    src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                    src={markPng}
                 />
                 }
                 actions={[
@@ -44,7 +42,7 @@ function Home(props) {
                     ]}
             >
                 <Meta
-                    avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
+                    avatar={<Avatar src={avatarSvg} />}
                     title={tag.name}
                     description="This is the description"
                 />
@@ -57,18 +55,34 @@ function Home(props) {
     const handleCancle = ()=>{
         setVisible(false);
     }
+    
     return (
         <div className={styles['dashboard-div'] }>
             <div className='flex-sta-cen'>
                 <Button className={styles.btn} type="primary" >新建可视化</Button>   
                 {/* onClick={()=>{dispatch({type:'toggleModel',visible:true})}} */}
-                <Button style={styless.test} type="primary" onClick={()=>{setVisible(true)}} >选取已有模板 </Button>   
+                <Button className={styles.btn} type="primary" onClick={()=>{setVisible(true)}} >选取已有模板 </Button>   
             </div>
-            <div className='flex-sta-cen'>
-                <DraggableArea   tags={dashboardLists} 
-                    render={itemRender}
-                    onChange={onChange}
-                /> 
+            {/* className={`flex-sta-sta`} */}
+            <div className={styles['grid-div'] }>
+                <GridLayout
+                    className={` layout`}
+                    layout={dashboardLists}
+                    cols={12}
+                    rowHeight={24}
+                    width={1400}
+                    preventCollision={true}
+                >
+                    {
+                        dashboardLists.map((item,index)=>{
+                            return (
+                                <div key={item.i}>{itemRender(item)}</div>
+                                // {itemRender(item)}
+                            )
+                        }) 
+                    }
+                </GridLayout>
+              
             </div>
             {/* 可选模板 */}
             {

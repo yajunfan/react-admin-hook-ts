@@ -5,7 +5,7 @@ import {CodeSandboxOutlined } from "@ant-design/icons";
 import Nav from "./nav";
 import ContentMain from "./contentMain";
 import {Context} from "./Context.jsx";
-const { Header, Content, Footer } = Layout;
+const { Header, Content} = Layout;
 
 
 function Main() {

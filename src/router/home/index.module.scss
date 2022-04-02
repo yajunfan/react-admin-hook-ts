@@ -1,5 +1,8 @@
 @import "../../mixin/minix.scss";
+
+
 .dashboard-div{
+    height: 100%;
     // background: "#142336";
     :global{
         .ant-card-actions,.ant-card-body{
@@ -16,6 +19,26 @@
     }
     .btn{
         @include margin(10px 10px 0px 10px);
+    }
+    .grid-div{
+        height: 90%;
+        
+        // .layout{
+        //     height: 100%;
+        //     background: #142336;
+        // }
+        :global{
+            .react-grid-layout{
+                background: #142336;
+            }
+            .react-grid-item:not(.react-grid-placeholder){
+                border: 1px solid #233647;
+            }
+            .react-grid-item.react-grid-placeholder {
+                background: rgb(119, 146, 155) !important;
+                border: 1px solid grey;
+              }
+        }
     }
 }
 
